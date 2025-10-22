@@ -13,16 +13,45 @@
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
-      const paragraph = <p>Current time: {dayjs().format('HH:mm:ss')}</p>;
+      function ChatInput() {
+        return (
+          <>
+            <input placeholder="Send a Message to Chatbot" size="30"/>
+            <button>Send</button>
+          </>
+        );
+      }
 
-      const container = document.querySelector('.js-container');
-      const root = ReactDOM.createRoot(container);
-      root.render(paragraph);
+      function ChatMessage(props){
+        const { message, sender } = props;
+        if(sender === "robot"){
+            return (
+              <div>
+                <img src="robot.png" width="50"/>
+                {message}
+              </div>
+            );
+        }
+        return (
+          <div>
+            {message}
+            <img src="user.png" width="50"/>
+          </div>
+        );
+      }
 
-      setInterval(() => {
-        const paragraph = <p>Current time: {dayjs().format('HH:mm:ss')}</p>;
-        root.render(paragraph);
-      }, 1000);
+
+      const app = (
+        <>
+          <ChatInput/>
+          <ChatMessage message="hello Chatbot" sender="user"/>
+          <ChatMessage message="Hello!How can I help you?" sender="robot"/>
+          <ChatMessage message="Can you get me todays date?" sender="user"/>
+          <ChatMessage message="today October 10" sender="robot"/>
+        </>
+      );
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(app);
     </script>
   </body>
 </html>
