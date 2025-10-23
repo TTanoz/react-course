@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>React Basics</title>
+    <title>E-Commerce</title>
   </head>
   <body>
     <div class="js-container"></div>
@@ -13,16 +13,50 @@
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
-      const paragraph = <p>Current time: {dayjs().format('HH:mm:ss')}</p>;
 
-      const container = document.querySelector('.js-container');
-      const root = ReactDOM.createRoot(container);
-      root.render(paragraph);
+function ProductDetails({ name, price, discountPrice, imageSrc }) {
+  return (
+    <div>
+      <img src={imageSrc} width="150"/>
+      <p>{name}</p>
+      {discountPrice ? (
+        <>
+          <del><p>Price: ${price}</p></del>
+          <p>Discount price: ${discountPrice}</p>
+        </>
+      ) : (
+        <p>Price: ${price}</p>
+      )}
+      <button>Add to Cart</button>
+    </div>
+  );
+}
 
-      setInterval(() => {
-        const paragraph = <p>Current time: {dayjs().format('HH:mm:ss')}</p>;
-        root.render(paragraph);
-      }, 1000);
+      function App() {
+        return (
+          <>
+            <ProductDetails
+              imageSrc= "cotton-socks.png"
+              name="Cotton socks"
+              price="10.90"
+              discountPrice="5.45"
+            />
+            <ProductDetails
+              imageSrc= "tennis-balls.png"
+              name="Tennis balls"
+              price="6.00"
+            />
+            <ProductDetails
+            imageSrc= "plain-t-shirt.png"
+              name="Plain T-Shirt"
+              price="7.99"
+            />
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<App/>);
     </script>
   </body>
 </html>
